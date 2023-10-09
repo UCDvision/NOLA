@@ -122,7 +122,7 @@ python -m torch.distributed.launch --nproc_per_node=1 src/gpt2_ft.py \
     --max_epoch 5 \
     --save_interval 1000 \
     --nola_rank 8 \
-    --nola_c 1.0 \
+    --nola_c 0.01 \
     --qnola \
     --qbits 3 \
     --nola_qv \
@@ -142,7 +142,7 @@ python -m torch.distributed.launch --nproc_per_node=1 src/gpt2_beam.py \
     --init_checkpoint ./trained_models/GPT2_M/e2e/model.26290.pt \
     --platform local \
     --nola_rank 8 \
-    --nola_c 1.0 \
+    --nola_c 0.01 \
     --nola_qv \
     --qnola \
     --qbits 3 \
