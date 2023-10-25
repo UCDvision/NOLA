@@ -1,6 +1,6 @@
 # NOLA: Networks as Linear Combination of Low Rank Random Basis
 
-This Repository is an official implementation of NOLA.
+This Repository is an official implementation of [NOLA](https://arxiv.org/abs/2310.02556).
 Our code is based on [LoRA](https://github.com/microsoft/LoRA/tree/main). 
 
 ## Overview
