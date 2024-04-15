@@ -1,21 +1,34 @@
-# NOLA: Networks as Linear Combination of Low Rank Random Basis
+# NOLA: Compressing LoRA using Linear Combination of Random Basis
 
-This Repository is an official implementation of [NOLA](https://arxiv.org/abs/2310.02556).
-Our code is based on [LoRA](https://github.com/microsoft/LoRA/tree/main). 
+Paper: NOLA: Compressing LoRA using Linear Combination of Random Basis (ICLR 2024)
+Soroush Abbasi Koohpayegani*, Navaneet K L*, Parsa Nooralinejad, Soheil Kolouri, Hamed Pirsiavash
+
+This Repository is an official implementation of NOLA: 
+[arXiv](https://arxiv.org/abs/2310.02556), [ICLR 2024](https://openreview.net/forum?id=TjfXcDgvzk)
+
+Our code is based on [LoRA](https://github.com/microsoft/LoRA/tree/main) and [QLoRA](https://github.com/artidoro/qlora). 
+
 
 ## Overview
 
-NOLA is a novel approach for fine-tuning large models such as LLMs and Vision Transformers. Similar to LoRA, NOLA uses a low-rank decomposition of weight matrices for the fine-tuning step. However, instead of optmizing these matrices, we use a collection of such matrices with random initialization and learn just the mixture coefficients on the target task. This decouples the number of training parameters and the size of the weight matrices and provides a more fine-grained control on the number of training parameters. While LoRA is limited to rank one decomposition of the matrices to limit the training parameters, NOLA has no such limitations. Through experiments on both language and vision tasks, we show that NOLA outperforms LoRA at comparable parameters and achieves comparable performance with just half or one-third the parameters. The random basis matrices can be generated on the fly and can be shared across layers and tasks and thus provides training and inference memory efficiency. It can also be quantized better than LoRA and achieves comparable performance to full precision with 2-bit quantization of the NOLA parameters.
 
-![](nola_teaser_2-1.png)
+NOLA is a novel approach for fine-tuning large models such as LLMs and Vision Transformers. Similar to LoRA, NOLA uses a low-rank decomposition of weight matrices for the fine-tuning step. However, LoRA face two primary limitations: 
+- The parameter count is lower-bounded by the rank one decomposition
+- The extent of reduction is heavily influenced by both the model architecture and the chosen rank.
+
+We introduce NOLA, which brings parameter count felexiblity to LoRA. NOLA achieves this by re-parameterizing the low-rank matrices in LoRA using linear combinations of randomly generated matrices (basis) and optimizing the linear mixture coefficients only. This approach allows us to decouple the number of trainable parameters from both the choice of rank and the network architecture.
+
+For example, in LLaMA-2 70B, NOLA is almost 20 times more compact than the most compressed LoRA without degradation in accuracy. Remarkbly, We are able to finetune LLaMA-2 70B with only 0.6M parameters only. 
+
+![Nola_teaser7](https://github.com/UCDvision/NOLA/assets/62820830/8060b220-3115-42ea-853e-2629d52e3e3a)
 
 ## Requirements
 
-All our experiments use the PyTorch library. Instructions for PyTorch installation can be found [here](https://pytorch.org/). We primarily use GPT-2 for our experiments on natural language generation tasks.
+All our experiments use the PyTorch library. Instructions for PyTorch installation can be found [here](https://pytorch.org/). We primarily use GPT-2 and LLaMA 2 for our experiments on natural language generation tasks.
 
 ## Dataset
 
-We use E2ENLG, DART and WebNLG datasets for our experiments on natural language generation. 
+We use E2ENLG, DART and WebNLG datasets for our experiments on natural language generation with GPT-2. Moreover, we use Alpaca dataset for instruction fine-tuning with LLaMA-2.  
 
 ## Getting Started 
 Please install dependencies in a virtual environment: 
