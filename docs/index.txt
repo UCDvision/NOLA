@@ -1,20 +1,19 @@
 ---
 layout: default
-title: Constrained Mean Shift Using Distant Yet Related Neighbors for Representation Learning 
+title: NOLA: Compressing LoRA using Linear Combination of Random Basis
 ---
 <br>
 <div style="height:25px;">
-<p style="text-align:center;">
-  <a href="https://www.linkedin.com/in/ajinkya-tejankar/">Ajinkya Tejankar</a><sup>1,∗</sup>, 
+<p style="text-align:center;"> 
   <a href="https://soroush-abbasi.github.io/">Soroush Abbasi Koohpayegani</a><sup>1,∗</sup>,
-  <a href="#">K L Navaneet</a><sup>1,∗</sup> <br>
-  , <a href="#">Kossar Pourahmadi</a><sup>1</sup>, 
-  <a href="#">Akshayvarun Subramanya</a><sup>1</sup>,
-  <a href="https://www.csee.umbc.edu/~hpirsiav/">Hamed Pirsiavash</a><sup>2</sup></p>
+  <a href="https://www.linkedin.com/in/navaneetkl/?originalSubdomain=in">Navaneet K L</a><sup>1,∗</sup>,
+  <a href="https://p-nooralinejad.github.io/">Parsa Nooralinejad</a><sup>1</sup>,
+  <a href="https://skolouri.github.io">Soheil Kolouri</a><sup>2</sup></p>
+  <a href="https://web.cs.ucdavis.edu/~hpirsiav/">Hamed Pirsiavash</a><sup>1</sup></p>
 </div>
 <br>
 <div style="height:25px;">
-<p style="text-align:center;"><sup>1</sup>University of Maryland, Baltimore County, <sup>2</sup>University of California, Davis</p>
+<p style="text-align:center;"><sup>1</sup>University of California, Davis, <sup>2</sup>Vanderbilt University</p>
 </div>
 <div style="height:30px;">
 <p style="text-align:center; font-size:12px"><sup>∗</sup> denote equal contribution</p>
