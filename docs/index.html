@@ -33,189 +33,76 @@ title: NOLA: Compressing LoRA using Linear Combination of Random Basis
 
   
 <h5 id="abstract"><b>Abstract</b></h5>
-<p>We are interested in representation learning in self-supervised, supervised, or semi-supervised settings. 
-  The prior work on applying mean-shift idea for self-supervised learning, MSF, generalizes the BYOL idea by
-  pulling a query image to not only be closer to its other augmentation, but also to the nearest neighbors (NNs)
-  of its other augmentation. We believe the learning can benefit from choosing far away neighbors that are still
-  semantically related to the query. Hence, we propose to generalize MSF algorithm by constraining the search 
-  space for nearest neighbors. We show that our method outperforms MSF in SSL setting when the constraint 
-  utilizes a different augmentation of an image, and outperforms PAWS in semi-supervised setting with less 
-  training resources when the constraint ensures the NNs have the same pseudo-label as the query.</p>
+<p>Fine-tuning Large Language Models (LLMs) and storing them for each downstream task or domain is impractical because of the massive model size (e.g., 350GB in GPT-3).
+Current literature, such as LoRA, showcases the potential of low-rank modifications to the original weights of an LLM, enabling efficient adaptation and storage for task-specific models. 
+These methods can reduce the number of parameters needed to fine-tune an LLM by several orders of magnitude. Yet, these methods face two primary limitations:
+  (1) the parameter count is lower-bounded by the rank one decomposition, and (2) the extent of reduction is heavily influenced by both the model architecture and the chosen rank. 
+We introduce NOLA, which overcomes the rank one lower bound present in LoRA. It achieves this by re-parameterizing the low-rank matrices in LoRA using linear combinations of
+  randomly generated matrices (basis) and optimizing the linear mixture coefficients only. 
+  This approach allows us to decouple the number of trainable parameters from both the choice of rank and the network architecture.
+  We present adaptation results using GPT-2, LLaMA-2, and ViT in natural language and computer vision tasks. NOLA performs as well as LoRA models 
+  with much fewer number of parameters compared to LoRA with rank one, the best compression LoRA can archive. Particularly,
+  on LLaMA-2 70B, our method is almost 20 times more compact than the most compressed LoRA without degradation in accuracy.</p>
 
-<h5 id="contributions"><b>Contributions</b></h5>
+<h5 id="contributions"><b>Motivation</b></h5>
   <p> 
-    We argue that the top-k neighbors are close to the query image by construction, and thus may not provide a strong supervision signal.
-    We are interested in choosing far away (non-top) neighbors that are still semantically related to the query image. 
-    This cannot be trivially achieved by increasing the number of NNs since the purity of retrieved neighbors decreases with increasing k
-    , where the purity is defined as the percentage of the NNs belonging to the same semantic category as the query image.    
+    We're observing the rise of fine-tuned LLMs tailored for specific tasks. For instance, OpenAI introduced GPT Store,
+    allowing users to fine-tune GPT models on their datasets to develop a model with specific skills or styles.
+    Storing and managing these LLMs on hardware can pose challenges, especially as the variety of LLMs continues to grow. Our goal is to reduce the model size for each LLM variation. 
+    LoRA address this limitation by finetuniung only a few additional parameters for each task. We introduce NOLA to address the limitations of LoRA. 
+    With NOLA, we can fine-tune models using fewer parameters compared to LoRA.
+
   </p>
   
-  <p>
-    We generalize MSF[15] method by simply limiting the NN search to a smaller subset that we believe is semantically related to query. 
-    We define this constraint to be the NNs of another query augmentation in SSL setting and images sharing the same label or pseudo-label
-    in supervised and semi-supervised settings.
-  </p>
+  
+  <h5 id="question"><b>Let’s start with an interesting question:</b></h5>
+  <p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/NOLA_p1.png" width="100%" alt style></p>
   
   <p>
-    Our experiments show that the method outperforms the various baselines in all three settings with same or less amount of computation in training. 
-    It outperforms MSF[15] in SSL, cross-entropy in supervised (with clean or noisy labels), and PAWS[3] in semi-supervised settings.
+    We will answer to this question later. But first, let’s discuss about the limitation of LoRA. 
   </p>
 
-  
+  <h5 id="limitation_lora"><b>Limitation of LoRA</b></h5>
     <p> 
-   We report the total training FLOPs for forward and backward passes through the CNN backbone.
-      <strong>(Left) Self-supervised:</strong> All methods are trained on ResNet-50 backbone for 200 epochs. 
-      CMSF achieves competitive accuracy with considerably lower compute. <strong>(Right) Semi-supervised:</strong> 
-      Circle radius is proportional to the number of GPUs/TPUs used. In addition to being compute efficient, CMSF is 
-      trained with an order of magnitude lower resources, making it more practical and accessible.
+   The key idea of LoRA is fine-tuning only a few parameters by constraining the changes in the weight matrix to be low-rank.
+  Changes in the weight matrix W can be expressed as the multiplication of two low-rank matrices, A and B with rank r. So number of optimized parameters is:  r x (m+n). 
+  By using a lower rank, LoRA can significantly reduce the number of optimized parameters.
+  Note that one can merge A times B with original W, therefore LoRA does not introduce any overhead during inference time. 
   </p>
 
-<p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/compute.png" width="100%" alt style></p>
+<p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/lora.png" width="100%" alt style></p>
     
-  
-
-  
-  
-    <h5 id="Method"><b>Method</b></h5>
-<p>
-      Similar to MSF[15], given a query image, we are interested in pulling its embedding closer to the mean of the
-  embeddings of its nearest neighbors (NNs). However, since top NNs are close to the target itself, they may not provide a strong supervision signal. 
-  On the other hand, far away (non-top) NNs may not be semantically similar to the target image. Hence, we constrain the NN search space to include 
-  mostly far away points with high purity. The purity is defined as the percentage of the NNs being from the same semantic category as the query image. 
-We use different constraint selection techniques to analyze our method in supervised, self- and semi-supervised settings.
-    </p>
-  
-  
-<p>
-      We augment an image twice and pass them through online and target encoders followed by L<sub>2</sub> normalization to get u and v. 
-  Mean-shift[15] encourages v to be close to both u and its nearest neighbors (NN). Here, we constrain the NN pool based on 
-  additional knowledge in the form of supervised labels, classifier or previous augmentation based pseudo-labels. 
-  These constraints ensure that the query is pulled towards semantically related NNs that are farther away from the target feature.
-    </p>
-
-<p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/cmsf_teaser.gif" width="90%" alt style></p>
-
-  <h5 id="Method"><b>Self-Supervised Settings:</b></h5>
-
   <p> 
-    In the initial stages of learning two diverse augmentations of an image are not very close to each other in the embedding space. 
-    Thus, one way of choosing far away NNs for the target u with high purity is to limit the neighbor search space based on the NNs 
-    of a different augmentation u' of the target. 
+  There are two notable limitations with LoRA. First, the number of parameters depend on the model's architecture, represented by m and n, as well as the chosen rank
+Second, the number of parameters is constrained by the rank one. Since rank cannot be fractional so it's impossible to decrease the number of parameters to less than m+n. 
   </p>
-  
-  
-  
-  <p>
-    <strong> CMSF-KM:</strong>
-Here, we perform clustering at the end of each epoch (using the cached embeddings of that epoch) and define 
-    C to be a subset of M that shares the same cluster assignment as the target. Similar to MSF, we then use top-k 
-    NNs of target u from constrained set C for loss calculation to maintain high purity. Since augmentations are chosen 
-    randomly and independently at each epoch, cluster assignment and distance minimization happen with different augmentations. 
-    Even though members of a cluster are close to each other in the previous epoch, the set C may not be close to the current target. 
-    This improves learning by averaging distant samples with a good purity.
-  </p>
-  
-  <p>
-    <strong> CMSF-2Q:</strong>
-We propose this method to show the importance of using a different augmentation to constrain the NN search space. 
-In addition to M, we maintain a second memory bank M' that is exactly the same as M but containing a different (third) augmentation of the query image.
-We assume w<sub>i</sub> <span>&#8712;</span> M' and u<sub>i</sub> <span>&#8712;</span> M are two embeddings corresponding to the same image x<sub>i</sub>. Then,
-    for image x<sub>i</sub>, we find NNs of w<sub>i</sub> in M' and use their indices to construct the search space C from M. 
-    As a result, C will maintain good purity while being diverse.
-  </p>
-  
-  <p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/2q_teaser.gif" width="50%" alt style></p>
+
+  <p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/nola_keyidea.png" width="100%" alt style></p>
 
   
-  <p>
-We use epoch 100 of CMSF-2Q to visualize Top-5 NN from constrained and unconstrained memory bank. 
-    First row is NNs from the second memory bank M', that is exactly the same as M but containing 
-    a different augmentation. Samples of the second row are NNs from second memory bank M' in M, 
-    therefore they are different augmentations of first row. Additionally, We show their rank in M
-    as well. The last row is NNs from the first memory bank M. Note that constrained samples in M 
-    (second row), have high rank while they are semantically similar to the target.
-  </p>
+  <h5 id="limitation_lora"><b>Proposed Method: NOLA</b></h5>
   
-  <p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/cmsf_vis_sup_2q.jpg" width="100%" alt style></p>
-  
-  
-  <p>
-    <strong> Histogram of constrained samples:</strong>
- We plot the histogram of constrained sample ranks in multiple stages of training of both CMSF-2Q and CMSF-KM for comparison.
-    A large number of distant neighbors are part of constraint in the early stages of training while there is a higher overlap
-    between constrained and unconstrained NN set towards the end of training. CMSF-2Q retrieves farther neighbors compared to CMSF-KM.
-  
-  </p>
-  
-  <p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/cmsf_hist_comp.jpg" width="100%" alt style></p>
-  
-  
-  <h5 id="Method"><b>Semi-Supervised Settings:</b></h5>
-  
-  <p>
-    In this setting, we assume access to a small labeled and a large unlabeled dataset. We train a simple classifier using the current 
-    embeddings of the labeled data and use the classifier to pseudo-label the unlabeled data. Then, similar to the supervised setting, 
-    we construct C to be the elements of M that share the pseudo-label with the target. Again, this method increases the diversity 
-    of C while maintaining high purity. To keep the purity high, we enforce the constraint only when the pseudo-label is very confident 
-    (the probability is above a threshold.) For the samples with non-confident pseudo-label, we relax the constraint resulting in regular 
-    MSF loss (i.e., C = M.) Moreover to reduce the computational overhead of pseudo-labeling, we cache the embeddings throughout the epoch
-    and train a 2-layer MLP classifier using the frozen features in the middle and end of each epoch. 
-  </p>
-  
-  <h5 id="Method"><b>Supervised Settings:</b></h5>
-  
-  <p>
-    While the supervised setting is not our primary novelty or motivation, we study it to provide more insights into our constrained mean-shift framework.
-    Since we do have access to the labels of each image, we can simply construct C as the subset of M that shares the same label as the target. 
-    This guarantees 100% purity for the NNs. 
-  </p>
-  
-  
-  
-  
-  
-<h5 id="results"><b>Self-supervised Learning Results</b></h5>
+<p>
+     The core idea of NOLA is to reparametrizing matrices A and B in LoRA.
+  Inspired from PRANC[1] which is published in ICCV 2023, we construct A and B as linear combinations of frozen random matrices. 
+These random matrices serve as the basis for A and B, and during fine-tuning, we optimize only the coefficients associated with each base matrix.
 
-    <p>
-      <strong> Evaluation on full ImageNet:</strong>
-         We compare our model with other SOTA methods in Linear (Top-1 Linear) and Nearest Neighbor (NN,20-NN) evaluation.
-      We use a 128K memory bank for CMSF and provide comparison with both 256K and 1M memory bank versions of MSF. Since CMSF-2Q uses NNs from two memory banks,
-      it is comparable to MSF (256K) in memory and computation overhead. Our method outperforms other SOTA methods with similar compute including MSF.
-      "Multi-Crop" refers to use of more than 2 augmentations per image during training (e.g., OBoW uses 2 <span>&#215;</span> 160+5 <span>&#215;</span> 96 
-      resolution images in both forward and backward passes compared to a single 224 in CMSF). Use of multi-crops significantly increases compute while
-      symmetric loss doubles the computation per batch. Thus methods employing these strategies are not directly comparable with CMSF.
-        
     </p>
-<p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/table1.jpg" width="80%" alt style>
-    
-    </p>
-    
-    <p>
-      <strong>  Transfer learning evaluation:</strong>
-        Our supervised CMSF model at just 200 epochs outperforms all supervised baselines on transfer learning evaluation.
-      Our SSL model outperforms MSF, the comparable state-of-the-art approach, by 1.2 points on average over 10 datasets.
-        
-    </p>
-<p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/table2.jpg" width="100%" alt style>
-    
+
+  
+<p>
+  we use a scalar seed and a pseudo-random generator to generate random matrices that serve as the basis for A and B. Specifically, we generate k basis for A and l basis for B.
+  Next, we multiply each random basis by its corresponding coefficient, alphas and betas, to construct A and B.
+
+Next, we can utilize A and B for training in a manner similar to LoRA. We only optimize the coefficients and basis remain frozen during optimization.
+
+
+
     </p>
   
-  
-  <h5 id="results"><b>Semi-supervised Learning Results</b></h5>
-  <p>
-      <strong>  Semi-supervised learning on ImageNet dataset with 10% labels:</strong>
-          
-   FLOPs denotes the total number of FLOPS for forward and backward passes through ResNet-50 backbone while batch size denotes the sum of labeled 
-    and unlabeled samples in a batch. CMSF-Pseudo-mix precision is compute and resource efficient, achieving SOTA performance at comparable compute. 
-    PAWS requires large number of GPUs to be compute efficient and its performance drastically drops with 4/8 GPUs. <span>&#8224;</span> Trained with 
-    stronger augmentations like RandAugment[10]. <span>&#10033;</span> TPUs are used.
-  
-        
-    </p>
-<p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/table3.jpg" width="50%" alt style>
-    
-    </p>
-  
+
+<p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/NOLA_gif.gif" width="100%" alt style></p>
+
   
 
  
