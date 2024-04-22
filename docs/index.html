@@ -29,7 +29,7 @@ title: NOLA: Compressing LoRA using Linear Combination of Random Basis
 </div>
 
 <div>
-<p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/NOLA_gif.gif" width="100%" alt style></p>
+<p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/NOLA_gif.gif" width="50%" alt style></p>
 
   
 <h5 id="abstract"><b>Abstract</b></h5>
@@ -96,12 +96,10 @@ These random matrices serve as the basis for A and B, and during fine-tuning, we
 
 Next, we can utilize A and B for training in a manner similar to LoRA. We only optimize the coefficients and basis remain frozen during optimization.
 
-
-
     </p>
   
 
-<p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/NOLA_gif.gif" width="100%" alt style></p>
+<p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/NOLA_gif.gif" width="50%" alt style></p>
 
   
 
@@ -114,29 +112,6 @@ Next, we can utilize A and B for training in a manner similar to LoRA. We only o
 
 
 <h5 id="references"><b>References</b></h5>
-  <br>[1] Torchvision  models.https://pytorch.org/docs/stable/torchvision/models.html.
-  <br>[2] Soroush Abbasi Koohpayegani, Ajinkya Tejankar, and Hamed Pirsiavash. Compress: Self-supervised learning by compressing representations. Advances in Neural Information Processing Systems, 33, 2020.
-  <br>[3] Mahmoud Assran, Mathilde Caron, Ishan Misra, Piotr Bojanowski, Armand Joulin, Nicolas Ballas, and Michael Rabbat. Semi-supervised learning of visual features by non-parametrically predicting view assignments with support samples. ICCV, 2021.
-  <br>[4] Mathilde Caron, Piotr Bojanowski, Armand Joulin, and Matthijs Douze. Deep clustering for unsupervised learning of visual features. InProceedings of the European Conference on Computer Vision (ECCV), pages 132–149, 2018.
-  <br>[5] Mathilde Caron, Ishan Misra, Julien Mairal, Priya Goyal, Piotr Bojanowski, and Armand Joulin. Unsupervised learning of visual features by contrasting cluster assignments. In Advances in Neural Information Processing Systems, pages 9912–9924. Curran Associates, Inc., 2020.
-  <br>[6] Ting Chen, Simon Kornblith, Mohammad Norouzi, and Geoffrey Hinton. A simple framework for contrastive learning of visual representations. arXiv preprint arXiv:2002.05709, 2020.
-  <br>[7] Ting Chen, Simon Kornblith, Kevin Swersky, Mohammad Norouzi, and Geoffrey E Hinton. Big self-supervised models are strong semi-supervised learners. Advances in Neural Information Processing Systems, 33:22243–22255, 2020.
-  <br>[8] Xinlei Chen, Haoqi Fan, Ross Girshick, and Kaiming He. Improved baselines with momentum contrastive learning. arXiv preprint arXiv:2003.04297, 2020.
-  <br>[9] Xinlei Chen and Kaiming He. Exploring simple siamese representation learning. arXiv preprint arXiv:2011.10566,2020.
-  <br>[10] Ekin Dogus Cubuk, Barret Zoph, Jon Shlens, and Quoc Le. Randaugment: Practical automated data augmentation with a reduced search space. In H. Larochelle, M. Ranzato, R. Hadsell, M. F. Balcan, and H. Lin, editors, Advances in Neural Information Processing Systems, volume 33, pages 18613–18624. Curran Associates, Inc., 2020.
-  <br>[11] Debidatta Dwibedi, Yusuf Aytar, Jonathan Tompson, Pierre Sermanet, and Andrew Zisserman. With a little help from my friends: Nearest-neighbor contrastive learning of visual representations, 2021.
-  <br>[12] Spyros Gidaris, Andrei Bursuc, Gilles Puy, Nikos Komodakis, Matthieu Cord, and Patrick Perez. Obow: Online bag-of-visual-words generation for self-supervised learning. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), pages 6830–6840, June 2021.
-  <br>[13] Jean-Bastien  Grill,  Florian  Strub,  Florent  Altche,  Corentin Tallec,  Pierre  H  Richemond,  Elena  Buchatskaya,  Carl  Doersch,  Bernardo Avila Pires,  Zhaohan Daniel Guo,  Mohammad Gheshlaghi Azar,  et al.   Bootstrap your own latent:  A new  approach  to  self-supervised  learning. arXiv  preprintarXiv:2006.07733, 2020.
-  <br>[14] Kaiming He,  Haoqi Fan,  Yuxin Wu,  Saining Xie,  and Ross Girshick.   Momentum  contrast  for  unsupervised  visual  representation learning.  InProceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, pages 9729–9738, 2020.
-  <br>[15] Soroush Abbasi Koohpayegani, Ajinkya Tejankar, and Hamed Pirsiavash. Mean shift for self-supervised learning. In Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV), pages 10326–10335, October 2021.
-  <br>[16] Ishan Misra and Laurens van der Maaten. Self-supervised learning of pretext-invariant representations. arXiv preprint arXiv:1912.01991, 2019.
-  <br>[17] Hieu Pham, Zihang Dai, Qizhe Xie, and Quoc V Le. Meta pseudo labels. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, pages 11557–11568, 2021.
-  <br>[18] Kihyuk Sohn, David Berthelot, Nicholas Carlini, Zizhao Zhang, Han Zhang, Colin A Raffel, Ekin Dogus Cubuk, Alexey Kurakin, and Chun-Liang Li. Fixmatch: Simplifying semi-supervised learning with consistency and confidence. Advances in Neural Information Processing Systems, 33, 2020. 
-  <br>[19] Ajinkya Tejankar, Soroush Abbasi Koohpayegani, Vipin Pillai, Paolo Favaro, and Hamed Pirsiavash. ISD: Self-supervised learning by iterative similarity distillation, 2020.  
-  <br>[20] Feng Wang, Huaping Liu, Di Guo, and Sun Fuchun. Unsupervised representation learning by invariance propagation. In Advances in Neural Information Processing Systems, volume 33, pages 3510–3520. Curran Associates, Inc., 2020.
-  <br>[21] Guangrun Wang, Keze Wang, Guangcong Wang, Philip H. S. Torr, and Liang Lin. Solving inefficiency of self-supervised representation learning, 2021.
-  <br>[22] Chen Wei, Huiyu Wang, Wei Shen, and Alan Yuille.  Co2: Consistent contrast for unsupervised visual representation learning. arXiv preprint arXiv:2010.02217, 2020.
-  <br>[23] Qizhe Xie, Zihang Dai, Eduard Hovy, Minh-Thang Luong, and Quoc V Le. Unsupervised data augmentation for consistency training. NeurIPS, 2020.
-  <br>[24] Asano YM., Rupprecht C., and Vedaldi A. Self-labelling via simultaneous clustering and representation learning. In International Conference on Learning Representations, 2020.
-
-  
+  <br>[1] Hu, E., Shen, Y., Wallis, P., Allen-Zhu, Z., Li, Y., Wang, S., Wang, L., & Chen, W. "LORA: Low-rank adaptation of large language models.” ICLR 2022
+  <br>[2] Nooralinejad, P., Abbasi, A., Abbasi Koohpayegani, S., Pourahmadi Meibodi, K., Khan, R. M. S., Kolouri, S., & Pirsiavash, H. 
+“PRANC: Pseudo RAndom Networks for Compacting deep models.” ICCV 2023
