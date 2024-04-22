@@ -70,7 +70,7 @@ We introduce NOLA, which overcomes the rank one lower bound present in LoRA. It 
   Note that one can merge A times B with original W, therefore LoRA does not introduce any overhead during inference time. 
   </p>
 
-<p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/lora.jpg" width="70%" alt style></p>
+<p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/lora.jpg" width="100%" alt style></p>
     
   <p> 
   There are two notable limitations with LoRA. First, the number of parameters depend on the model's architecture, represented by m and n, as well as the chosen rank
@@ -109,11 +109,11 @@ Next, we can utilize A and B for training in a manner similar to LoRA. We only o
       This is in contrast to LoRA, where the number of parameters is tied to the architecture and the rank. We calculate A and B using coefficients and basis, then merge them with W. This means NOLA does not have any overhead in inference time.
   </p>
 
-  <p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/nola_lora.jpg" width="70%" alt style></p>
+  <p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/nola_lora.jpg" width="100%" alt style></p>
 
   
 <h5 id="limitation_lora"><b>Finetuning Large Language Models</b></h5>
-  <p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/nola_t1.jpg" width="70%" alt style></p>
+  <p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/nola_t1.jpg" width="100%" alt style></p>
     <p> 
    Here, we experiment with fine-tuning LLaMA 2 on the Alpaca dataset. 
 NOLA uses 95% fewer parameters compared to LoRA with rank one, which is the smallest LoRA can do.
@@ -121,7 +121,7 @@ Interestingly, since each NOLA variant needs only 0.6 million parameters, if we 
   </p>
 
   <h5 id="limitation_lora"><b>Comparision to PEFT Adapters</b></h5>
-  <p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/nola_t2.jpg" width="70%" alt style></p>
+  <p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/nola_t2.jpg" width="100%" alt style></p>
     <p> 
      Compared to other baselines on GPT-2 model, NOLA achieves comparable performance while using fewer parameters. 
 Note that we have the flexibility to adjust the number of parameters to a desired value while keeping the rank constant. 
@@ -129,14 +129,14 @@ This allows us to employ higher ranks and still use fewer parameters compared to
   </p>
 
   <h5 id="limitation_lora"><b>NOLA on Vision Transformers</b></h5>
-  <p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/nola_t3.jpg" width="70%" alt style></p>
+  <p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/nola_t3.jpg" width="100%" alt style></p>
     <p> 
      We also evaluate NOLA on Vision transformers as well. NOLA performs on par with LoRA while using fewer parameters. 
   </p>
 
 
   <h5 id="limitation_lora"><b>Takeaway Message: How many variations of LLaMA2-70B can we store and run on a single GPU? </b></h5>
-  <p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/NOLA_p2.png" width="70%" alt style></p>
+  <p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/NOLA_p2.png" width="100%" alt style></p>
     <p> 
      With NOLA, it's feasible to store and run 10,000 variations of LLaMA-70B on a single GPU. This highlights the remarkable capability of NOLA to fine-tune large models using only a small number of parameters.
   </p>
