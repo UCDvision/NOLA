@@ -8,7 +8,7 @@ title: Compressing LoRA using Linear Combination of Random Basis
   <a href="https://soroush-abbasi.github.io/">Soroush Abbasi Koohpayegani</a><sup>1,∗</sup>,
   <a href="https://www.linkedin.com/in/navaneetkl/?originalSubdomain=in">Navaneet K L</a><sup>1,∗</sup><br>
   <a href="https://p-nooralinejad.github.io/">Parsa Nooralinejad</a><sup>1</sup>,
-  <a href="https://skolouri.github.io">Soheil Kolouri</a><sup>2</sup></p>
+  <a href="https://skolouri.github.io">Soheil Kolouri</a><sup>2</sup>,
   <a href="https://web.cs.ucdavis.edu/~hpirsiav/">Hamed Pirsiavash</a><sup>1</sup></p>
 </div>
 <br>
@@ -29,7 +29,7 @@ title: Compressing LoRA using Linear Combination of Random Basis
 </div>
 
 <div>
-<p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/NOLA_gif.gif" width="70%" alt style></p>
+<p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/NOLA_gif.gif" width="100%" alt style></p>
 
   
 <h5 id="abstract"><b>Abstract</b></h5>
@@ -99,7 +99,7 @@ Next, we can utilize A and B for training in a manner similar to LoRA. We only o
     </p>
   
 
-<p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/NOLA_gif.gif" width="70%" alt style></p>
+<p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/NOLA_gif.gif" width="100%" alt style></p>
 
 
 
@@ -135,7 +135,7 @@ This allows us to employ higher ranks and still use fewer parameters compared to
   </p>
 
 
-  <h5 id="limitation_lora"><b>Takeaway Message</b></h5>
+  <h5 id="limitation_lora"><b>Takeaway Message: How many variations of LLaMA2-70B can we store and run on a single GPU? </b></h5>
   <p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/NOLA_p2.png" width="70%" alt style></p>
     <p> 
      With NOLA, it's feasible to store and run 10,000 variations of LLaMA-70B on a single GPU. This highlights the remarkable capability of NOLA to fine-tune large models using only a small number of parameters.
