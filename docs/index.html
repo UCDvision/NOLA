@@ -56,7 +56,7 @@ We introduce NOLA, which overcomes the rank one lower bound present in LoRA. It 
   
   
   <h5 id="question"><b>Let’s start with an interesting question:</b></h5>
-  <p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/NOLA_p1.png" width="100%" alt style></p>
+  <p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/NOLA_p1.png" width="50%" alt style></p>
   
   <p>
     We will answer to this question later. But first, let’s discuss about the limitation of LoRA. 
@@ -70,14 +70,14 @@ We introduce NOLA, which overcomes the rank one lower bound present in LoRA. It 
   Note that one can merge A times B with original W, therefore LoRA does not introduce any overhead during inference time. 
   </p>
 
-<p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/lora.png" width="100%" alt style></p>
+<p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/lora.jpg" width="50%" alt style></p>
     
   <p> 
   There are two notable limitations with LoRA. First, the number of parameters depend on the model's architecture, represented by m and n, as well as the chosen rank
 Second, the number of parameters is constrained by the rank one. Since rank cannot be fractional so it's impossible to decrease the number of parameters to less than m+n. 
   </p>
 
-  <p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/nola_keyidea.png" width="100%" alt style></p>
+  <p style="text-align:center;"><img src="{{ site.baseurl }}/assets/images/nola_keyidea.png" width="50%" alt style></p>
 
   
   <h5 id="limitation_lora"><b>Proposed Method: NOLA</b></h5>
