@@ -21,7 +21,14 @@ We introduce NOLA, which brings parameter count felexiblity to LoRA. NOLA achiev
 
 For example, in LLaMA-2 70B, NOLA is almost 20 times more compact than the most compressed LoRA without degradation in accuracy. Remarkbly, We are able to finetune LLaMA-2 70B with only 0.6M parameters only. 
 
-![Nola_teaser7](https://ucdvision.github.io/NOLA/assets/images/NOLA_gif.gif)
+
+
+<div align="center">
+  <a href="https://ucdvision.github.io/NOLA/">
+    <img src="assets/images/NOLA_gif.gif">
+  </a>
+</div>
+
 
 ## Simple Code of NOLA
 
