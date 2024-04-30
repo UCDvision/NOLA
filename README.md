@@ -25,7 +25,7 @@ For example, in LLaMA-2 70B, NOLA is almost 20 times more compact than the most 
 
 <div align="center">
   <a href="https://ucdvision.github.io/NOLA/">
-    <img src="assets/images/NOLA_gif.gif">
+    <img src="https://ucdvision.github.io/NOLA/assets/images/NOLA_gif.gif">
   </a>
 </div>
 
