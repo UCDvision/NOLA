@@ -1,6 +1,6 @@
 
 
-# NOLA -- Large Language Model Finetuning (LLaMA)
+# NOLA: Large Language Model Finetuning (LLaMA)
 
 We modified [QLoRA](https://github.com/artidoro/qlora) code and added NOLA to LoRA model. Please install dependencies in a virtual environment: 
 
