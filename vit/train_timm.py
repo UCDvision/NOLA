@@ -23,12 +23,9 @@ import timm
 from timm.scheduler import create_scheduler
 from timm.optim import create_optimizer
 
-# from lora import LoRA_ViT_timm
-# from lora_mod import LoRA_ViT_timm
-# from nola import NOLA_ViT_timm
+from lora import LoRA_ViT_timm
 from nola_mlp import NOLAmlp_ViT_timm
 from dataloader import load_dataset
-# from adapter import Adapter_ViT
 from utils.result import ResultCLS
 from utils.utils import init, save
 
