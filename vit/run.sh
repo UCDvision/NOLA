@@ -7,9 +7,10 @@ lr=5e-3
 ka=1024
 rank=1
 # Loop - 4 diff seeds for dataset kshot sampling (idx j) --> 3 runs (with diff seeds for network init, idx k)
-for k in {0..0}
+# add eval argument to perform only evaluation
+for k in {0..2}
 do
-  for j in {0..0}
+  for j in {0..3}
   do
     gpu=$(($j+0))
     CUDA_VISIBLE_DEVICES="$gpu" python train_timm.py \
@@ -25,11 +26,9 @@ do
       --kshot "$kshot" \
       --kshot_seed "$j" \
       --epochs 50 --warmup-epochs 0 \
-      --train_data_path /home/navaneet/data/"$dset" \
-      --val_data_path /home/navaneet/data/"$dset" \
-      --outdir ./exp/e001_"$arch"_ft_"$train_type"_"$dset"_r"$rank"_k"$ka"_lr"$lr"/"$kshot"shot/v"$j"/run"$k"
-#      --outdir ./exp/temp
-#      --eval \
+      --train_data_path <path to datasets>/"$dset" \
+      --val_data_path <path to datasets>/"$dset" \
+      --outdir ./exp/e001_"$arch"_ft_"$train_type"_"$dset"_r"$rank"_k"$ka"_lr"$lr"/"$kshot"shot/v"$j"/run"$k" &
   done
   wait
 done
