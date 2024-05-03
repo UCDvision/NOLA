@@ -206,9 +206,16 @@ Next, please use the corresponding scripts to fine-tune LLaMA models with NOLA. 
 bash scripts/finetune_gpt2l_e2e_qv_nola.sh
 ```
 
+## Getting Started - Vision Transformers
 
+Our code for NOLA on vision transformers is based on the [LoRA-ViT](https://github.com/JamesQFreeman/LoRA-ViT). It requires the installation of timm library (``pip install timm``). We use Pytorch-2.0.1 and Timm-0.4.12 in our experiments but it should work with other versions too. 
 
-
+To finetune the ViT models with NOLA, execute the following script:
+```
+cd vit
+bash run.sh
+```
+You will need to download the fine-tuning dataset and set the dataset path variables accordingly in the bash script before running the code. You can also modify other parameters like network architecture, kshot and PEFT type. It is possible to run the baseline approaches by setting the ``training_type`` argument to ``lora, linear or full``. To evaluate a pretrained model, provide the model path using the ``weights`` argument and set the ``eval`` argument in the bash script. 
 
 
 ## Citation
