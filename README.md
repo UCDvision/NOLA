@@ -215,7 +215,7 @@ To finetune the ViT models with NOLA, execute the following script:
 cd vit
 bash run.sh
 ```
-You will need to download the fine-tuning dataset and set the dataset path variables accordingly in the bash script before running the code. You can also modify other parameters like network architecture, kshot and PEFT type. It is possible to run the baseline approaches by setting the ``training_type`` argument to ``lora, linear or full``. To evaluate a pretrained model, provide the model path using the ``weights`` argument and set the ``eval`` argument in the bash script. 
+You will need to download the fine-tuning dataset and set the dataset path variables accordingly in the bash script before running the code. You can also modify other parameters like network architecture, kshot and PEFT type. It is possible to run the baseline approaches by setting the ``training_type`` argument to ``lora, linear or full``. To evaluate a pretrained model, either provide the model path using the ``weights`` argument or provide the experiment path for the ``outdir`` argument and set the ``eval`` argument in the bash script. 
 
 
 ## Citation
