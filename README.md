@@ -210,12 +210,15 @@ bash scripts/finetune_gpt2l_e2e_qv_nola.sh
 
 Our code for NOLA on vision transformers is based on the [LoRA-ViT](https://github.com/JamesQFreeman/LoRA-ViT). It requires the installation of timm library (``pip install timm``). We use Pytorch-2.0.1 and Timm-0.4.12 in our experiments but it should work with other versions too. 
 
+Since we use 5-shot and 10-shot settings, there is a high variance in the fine-tuning performance. We use 4 different seeds to sample the k-shot dataset and for each of them, 3 different seeds for network initialization for a total of 12 runs per setting.
 To finetune the ViT models with NOLA, execute the following script:
 ```
 cd vit
 bash run.sh
 ```
-You will need to download the fine-tuning dataset and set the dataset path variables accordingly in the bash script before running the code. You can also modify other parameters like network architecture, kshot and PEFT type. It is possible to run the baseline approaches by setting the ``training_type`` argument to ``lora, linear or full``. To evaluate a pretrained model, either provide the model path using the ``weights`` argument or provide the experiment path for the ``outdir`` argument and set the ``eval`` argument in the bash script. 
+The code will complete all 12 runs for the setting used. We assume that the user has a 4-GPU server and run 4 experiments at a time. If there is only 1 GPU, remove the ``&`` after the last argument of the bash script and modify the ``gpu`` argument to 0 to run all 12 experiments sequentially.
+
+You will need to download the fine-tuning dataset and set the dataset path variables accordingly in the bash script before running the code. You can also modify other parameters like network architecture, kshot and PEFT type. It is possible to run the baseline approaches by setting the ``training_type`` argument to ``lora, linear or full``. To evaluate a pretrained model, either provide the model path using the ``weights`` argument or provide the experiment path for the ``outdir`` argument and set the ``eval`` argument in the bash script. Run the ``calculate_acc_mean_std.py`` code with appropriate experiment path to aggregate the accuracy values across the 12 runs and report the mean and standard deviation. 
 
 
 ## Citation
