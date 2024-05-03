@@ -220,6 +220,8 @@ The code will complete all 12 runs for the setting used. We assume that the user
 
 You will need to download the fine-tuning dataset and set the dataset path variables accordingly in the bash script before running the code. You can also modify other parameters like network architecture, kshot and PEFT type. It is possible to run the baseline approaches by setting the ``training_type`` argument to ``lora, linear or full``. To evaluate a pretrained model, either provide the model path using the ``weights`` argument or provide the experiment path for the ``outdir`` argument and set the ``eval`` argument in the bash script. Run the ``calculate_acc_mean_std.py`` code with appropriate experiment path to aggregate the accuracy values across the 12 runs and report the mean and standard deviation. 
 
+**Pretrained models** with logs for CIFAR-10 and CIFAR-100 datasets using ViT-L are available [here](https://drive.google.com/drive/folders/18TZdYFJRGoX_1uy0kHnGssA7xuJeFbCR?usp=sharing).
+
 
 ## Citation
 
