@@ -19,7 +19,7 @@ NOLA is a novel approach for fine-tuning large models such as LLMs and Vision Tr
 
 We introduce NOLA, which brings parameter count felexiblity to LoRA. NOLA achieves this by re-parameterizing the low-rank matrices in LoRA using linear combinations of randomly generated matrices (basis) and optimizing the linear coefficients only. This approach allows us to decouple the number of trainable parameters from both the choice of rank and the network architecture.
 
-For example, in LLaMA-2 70B, NOLA is almost 20 times more compact than the most compressed LoRA without degradation in accuracy. Remarkbly, We are able to finetune LLaMA-2 70B with only 0.6M parameters only. 
+For example, in LLaMA-2 70B, NOLA is almost 20 times more compact than the most compressed LoRA without degradation in accuracy. Remarkbly, We are able to finetune LLaMA-2 70B with just 0.6M parameters. 
 
 
 
