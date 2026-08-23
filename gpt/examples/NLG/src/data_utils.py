@@ -168,7 +168,7 @@ class BinCorpus(object):
     def get_tokens(self, offset, count):
         INT64_SIZE = 8
         self.bin_reader.seek(offset * INT64_SIZE)
-        x = np.fromfile(self.bin_reader, count=count, dtype=np.int)
+        x = np.fromfile(self.bin_reader, count=count, dtype=int)
         return x
 
 
